@@ -1,0 +1,23 @@
+# 构建产物
+bin/
+obj/
+*.user
+*.suo
+release/
+dist/
+dist-mcp/
+release-mcp/
+
+# IDE
+.vs/
+.idea/
+*.swp
+
+# 系统
+Thumbs.db
+.DS_Store
+
+# 敏感信息
+.env
+*.key
+*_token*

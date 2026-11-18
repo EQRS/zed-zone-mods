@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://zedzone.modconfigpanel/schema/v1",
+  "title": "ModConfigPanel Declaration",
+  "description": "ZED ZONE 模组配置面板的声明文件格式。放在 <模组目录>\\modconfig.json。",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "modGuid",
+    "displayName",
+    "groups"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1,
+      "description": "规范版本，当前固定为 1"
+    },
+    "modGuid": {
+      "type": "string",
+      "minLength": 1,
+      "description": "模组唯一标识，需与 BepInEx 插件 GUID 一致"
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1,
+      "description": "面板显示的模组名（可用中文）"
+    },
+    "description": {
+      "type": "string",
+      "description": "一句话简介"
+    },
+    "configFile": {
+      "type": "string",
+      "description": "配置文件相对游戏根目录的路径，用 / 分隔。留空表示该模组无配置文件（仅显示按钮等）"
+    },
+    "restartRequired": {
+      "type": "boolean",
+      "default": true,
+      "description": "改动后是否需要重启游戏才生效"
+    },
+    "groups": {
+      "type": "array",
+      "description": "配置分组，对应 cfg 里的 [节名]",
+      "items": {
+        "$ref": "#/$defs/group"
+      }
+    }
+  },
+  "$defs": {
+    "group": {
+      "type": "object",
+      "required": [
+        "section",
+        "title",
+        "items"
+      ],
+      "properties": {
+        "section": {
+          "type": "string",
+          "description": "cfg 中的节名，如 General"
+        },
+        "title": {
+          "type": "string",
+          "description": "界面显示的分组标题（可用中文）"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "required": [
+        "key",
+        "label",
+        "type"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "description": "cfg 中的键名"
+        },
+        "label": {
+          "type": "string",
+          "description": "界面显示名"
+        },
+        "type": {
+          "enum": [
+            "slider",
+            "number",
+            "toggle",
+            "button",
+            "text",
+            "input",
+            "keybind"
+          ],
+          "description": "控件类型"
+        },
+        "description": {
+          "type": "string",
+          "description": "说明文字，显示在配置项下方"
+        },
+        "dependsOn": {
+          "type": "string",
+          "description": "依赖的另一项 key（预留）"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "slider"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "min",
+              "max"
+            ],
+            "properties": {
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "step": {
+                "type": "number",
+                "default": 0.05
+              },
+              "default": {
+                "type": "number"
+              },
+              "unit": {
+                "type": "string",
+                "description": "数值后缀，如 x 或 %"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "number"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "min": {
+                "type": "number"
+              },
+              "max": {
+                "type": "number"
+              },
+              "integer": {
+                "type": "boolean",
+                "default": false
+              },
+              "default": {
+                "type": "number"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "toggle"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "default": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "button"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "type": "string",
+                "pattern": "^(builtin:(restart_game|open_folder|open_url|reset_section|show_log)|callback:.+)$",
+                "description": "builtin:xxx 引用内置动作；callback:命名空间.类.方法 调用模组自己的静态方法"
+              },
+              "params": {
+                "type": "object",
+                "description": "动作参数，如 {path} 或 {url}"
+              },
+              "confirm": {
+                "type": "string",
+                "description": "非空则点击前弹确认框"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "text"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "content"
+            ],
+            "properties": {
+              "content": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

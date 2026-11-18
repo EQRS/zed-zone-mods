@@ -1,5 +1,8 @@
 # 自定义耐久 · Custom Durability
 
+> **开源地址**：https://github.com/EQRS/zed-zone-mods/tree/main/mods/ZedDurability
+> 欢迎审查代码、提交 Issue 与 Pull Request。
+
 **ZED ZONE（隔离区 - 丧尸末日生存）代码模组**
 
 ![自定义耐久](dist/cover.png)
@@ -38,7 +41,7 @@
 <游戏目录>\Mods\ZedDurability\ZedDurability.dll
 ```
 
-从 Steam 启动游戏即可。主菜单左上角的模组列表里会出现 **Custom Durability 1.0.4**。
+从 Steam 启动游戏即可。主菜单左上角的模组列表里会出现 **Custom Durability 1.0.5**。
 
 ---
 
@@ -147,7 +150,7 @@ Container_容器 = 1
 
 | 现象 | 处理 |
 |---|---|
-| 游戏内没有效果 | 查看 `BepInEx\LogOutput.log`，应有 `Custom Durability 1.0.4 loaded, patched 13 method(s).` |
+| 游戏内没有效果 | 查看 `BepInEx\LogOutput.log`，应有 `Custom Durability 1.0.5 loaded, patched 14 method(s).` |
 | 改动配置没反应 | **重启游戏**后再看 |
 | 想确认倍率是否读到 | 日志里的 `生效倍率：...` 行会列出所有非 1.0 的档位 |
 | 装完游戏起不来 | 把 `Mods\ZedDurability` 改名为 `ZedDurability.disabled` |

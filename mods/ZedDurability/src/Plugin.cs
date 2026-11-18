@@ -16,7 +16,7 @@ namespace ZedZone.ZedDurability
     {
         public const string Guid = "zedzone.durabilitymultiplier";
         public const string NameEn = "Custom Durability";
-        public const string Version = "1.0.4";
+        public const string Version = "1.0.5";
 
         public static Plugin Instance { get; private set; }
 

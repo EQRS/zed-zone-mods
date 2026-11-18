@@ -3,7 +3,7 @@
   <PropertyGroup>
     <AssemblyName>ZedDurability</AssemblyName>
     <RootNamespace>ZedZone.ZedDurability</RootNamespace>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <OutputPath>bin\\</OutputPath>
     <!-- 直接复用游戏目录 ZedModKit\Directory.Build.props 里的引用路径 -->
     <GameRoot>D:\Steam\steamapps\common\ZED ZONE\</GameRoot>
